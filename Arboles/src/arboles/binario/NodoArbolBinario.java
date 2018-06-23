@@ -1,10 +1,11 @@
 package arboles.binario;
 
 /**
-* Representa a un nodo en un arbol binario
-* @author DiscoDurodeRoer
-* @param <T> 
-*/
+ * Representa a un nodo en un arbol binario
+ *
+ * @author DiscoDurodeRoer
+ * @param <T>
+ */
 public class NodoArbolBinario<T extends Comparable<T>> {
 
     private T element;

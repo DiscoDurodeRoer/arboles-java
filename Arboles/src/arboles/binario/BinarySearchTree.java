@@ -177,4 +177,58 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     }
 
+    /**
+     * Recorre los nodos, primero el padre y despues los hijos
+     * @param nodo 
+     */
+    public void preorder(NodoArbolBinario<T> nodo) {
+
+        System.out.println(nodo.getElement().toString());
+
+        if (nodo.getLeft() != null) {
+            preorder(nodo.getLeft());
+        }
+
+        if (nodo.getRight() != null) {
+            preorder(nodo.getRight());
+        }
+
+    }
+
+    /**
+     * Recorre los nodos, lo recorre de izquierda a derecha
+     * @param nodo 
+     */
+    public void inorder(NodoArbolBinario<T> nodo) {
+
+        if (nodo.getLeft() != null) {
+            inorder(nodo.getLeft());
+        }
+
+        System.out.println(nodo.getElement().toString());
+
+        if (nodo.getRight() != null) {
+            inorder(nodo.getRight());
+        }
+
+    }
+
+    /**
+     * Recorre los nodos, primero los hijos y luego el padre
+     * @param nodo 
+     */
+    public void postorder(NodoArbolBinario<T> nodo) {
+
+        if (nodo.getLeft() != null) {
+            postorder(nodo.getLeft());
+        }
+
+        if (nodo.getRight() != null) {
+            postorder(nodo.getRight());
+        }
+
+        System.out.println(nodo.getElement().toString());
+
+    }
+
 }
