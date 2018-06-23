@@ -459,23 +459,42 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
 
     }
-    
+
     public ListaDinamica<T> getElements(NodoArbolBinario<T> nodo, T elemento) {
 
-       ListaDinamica<T> elementos = new ListaDinamica<>();
-       ListaDinamica<NodoArbolBinario<T>> lista_nodos = new ListaDinamica<>();
-       
-       getNodes(nodo, elemento, lista_nodos);
-       
-       for(NodoArbolBinario<T> aux:lista_nodos){
-           
-           elementos.addLast(aux.getElement());
-           
-       }
-       
-       return elementos;
+        ListaDinamica<T> elementos = new ListaDinamica<>();
+        ListaDinamica<NodoArbolBinario<T>> lista_nodos = new ListaDinamica<>();
+
+        getNodes(nodo, elemento, lista_nodos);
+
+        for (NodoArbolBinario<T> aux : lista_nodos) {
+
+            elementos.addLast(aux.getElement());
+
+        }
+
+        return elementos;
 
     }
-    
+
+    public void mostrar(NodoArbolBinario<T> nodo) {
+
+        int profundidad = this.depth(nodo);
+
+        for (int i = 0; i < profundidad; i++) {
+            System.out.print(" ");
+        }
+        
+        System.out.println("- "+nodo.getElement().toString());
+
+        if (nodo.getLeft() != null) {
+            mostrar(nodo.getLeft());
+        }
+
+        if (nodo.getRight() != null) {
+            mostrar(nodo.getRight());
+        }
+
+    }
 
 }
