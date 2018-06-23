@@ -1,12 +1,12 @@
 package arboles.binario;
 
 /**
- * Representa a un nodo en un arbol binario
- * @author DiscoDurodeRoer
- * @param <T> 
- */
-public class NodoArbolBinario<T> {
-    
+* Representa a un nodo en un arbol binario
+* @author DiscoDurodeRoer
+* @param <T> 
+*/
+public class NodoArbolBinario<T extends Comparable<T>> {
+
     private T element;
     private NodoArbolBinario<T> parent;
     private NodoArbolBinario<T> left;
@@ -33,7 +33,6 @@ public class NodoArbolBinario<T> {
         this.left = left;
         this.right = right;
     }
-    
 
     public T getElement() {
         return element;
@@ -66,8 +65,5 @@ public class NodoArbolBinario<T> {
     public void setRight(NodoArbolBinario<T> right) {
         this.right = right;
     }
-    
-    
-    
-    
+
 }
