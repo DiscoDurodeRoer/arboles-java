@@ -179,7 +179,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * Recorre los nodos, primero el padre y despues los hijos
-     * @param nodo 
+     *
+     * @param nodo
      */
     public void preorder(NodoArbolBinario<T> nodo) {
 
@@ -197,7 +198,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * Recorre los nodos, lo recorre de izquierda a derecha
-     * @param nodo 
+     *
+     * @param nodo
      */
     public void inorder(NodoArbolBinario<T> nodo) {
 
@@ -215,7 +217,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * Recorre los nodos, primero los hijos y luego el padre
-     * @param nodo 
+     *
+     * @param nodo
      */
     public void postorder(NodoArbolBinario<T> nodo) {
 
@@ -228,6 +231,51 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
 
         System.out.println(nodo.getElement().toString());
+
+    }
+
+    /**
+     * Determina la altura del arbol desde el nodo dado
+     *
+     * @param nodo
+     * @return
+     */
+    public int height(NodoArbolBinario<T> nodo) {
+
+        int height = 0;
+
+        if (isInternal(nodo)) {
+
+            if (nodo.getLeft() != null) {
+                height = Math.max(height, height(nodo.getLeft()));
+            }
+
+            if (nodo.getRight() != null) {
+                height = Math.max(height, height(nodo.getRight()));
+            }
+
+            height++;
+        }
+
+        return height;
+
+    }
+
+    /**
+     * Devuelve la profundidad desde el nodo dado
+     *
+     * @param nodo
+     * @return
+     */
+    public int depth(NodoArbolBinario<T> nodo) {
+
+        int depth = 0;
+
+        if (nodo != getRoot()) {
+            depth = 1 + depth(nodo.getParent());
+        }
+
+        return depth;
 
     }
 
