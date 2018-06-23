@@ -1,5 +1,7 @@
 package arboles.binario;
 
+import lista.simple.ListaDinamica;
+
 /**
  * Arbol binario de busqueda o BST
  *
@@ -411,5 +413,69 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
         return nodo;
     }
+
+    public NodoArbolBinario<T> getNode(NodoArbolBinario<T> nodo, T elemento) {
+
+        NodoArbolBinario<T> aux = null;
+
+        if (nodo.getElement().compareTo(elemento) == 0) {
+            aux = nodo;
+        } else {
+            if (nodo.getLeft() != null) {
+                aux = getNode(nodo.getLeft(), elemento);
+            }
+
+            if (nodo.getRight() != null) {
+                aux = getNode(nodo.getRight(), elemento);
+            }
+        }
+
+        return aux;
+    }
+
+    public T getElement(NodoArbolBinario<T> nodo, T elemento) {
+
+        NodoArbolBinario<T> aux = getNode(nodo, elemento);
+
+        if (aux == null) {
+            return null;
+        }
+
+        return aux.getElement();
+    }
+
+    public void getNodes(NodoArbolBinario<T> nodo, T elemento, ListaDinamica<NodoArbolBinario<T>> lista_nodos) {
+
+        if (nodo.getElement().compareTo(elemento) == 0) {
+            lista_nodos.addLast(nodo);
+        }
+
+        if (nodo.getLeft() != null) {
+            getNodes(nodo.getLeft(), elemento, lista_nodos);
+        }
+
+        if (nodo.getRight() != null) {
+            getNodes(nodo.getRight(), elemento, lista_nodos);
+        }
+
+    }
+    
+    public ListaDinamica<T> getElements(NodoArbolBinario<T> nodo, T elemento) {
+
+       ListaDinamica<T> elementos = new ListaDinamica<>();
+       ListaDinamica<NodoArbolBinario<T>> lista_nodos = new ListaDinamica<>();
+       
+       getNodes(nodo, elemento, lista_nodos);
+       
+       for(NodoArbolBinario<T> aux:lista_nodos){
+           
+           elementos.addLast(aux.getElement());
+           
+       }
+       
+       return elementos;
+
+    }
+    
 
 }
