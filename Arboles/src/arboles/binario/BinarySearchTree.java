@@ -279,4 +279,137 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     }
 
+    private final int ONE_NODE_LEFT = 1;
+    private final int ONE_NODE_RIGHT = 2;
+    private final int TWO_NODES = 3;
+
+    /**
+     * Elimina el nodo indicados
+     *
+     * @param nodo
+     */
+    public void remove(NodoArbolBinario<T> nodo) {
+
+        if (root == null) {
+            System.out.println("No hay nodos que borrar");
+        } else if (isLeaf(nodo)) {
+            removeLeaf(nodo);
+        } else if (nodo.getRight() != null && nodo.getLeft() == null) {
+            removeWithChlid(nodo, ONE_NODE_RIGHT);
+        } else if (nodo.getRight() == null && nodo.getLeft() != null) {
+            removeWithChlid(nodo, ONE_NODE_LEFT);
+        } else {
+            removeWithChlid(nodo, TWO_NODES);
+        }
+
+    }
+
+    /**
+     * Elimina un nodo hoja
+     *
+     * @param nodo
+     */
+    private void removeLeaf(NodoArbolBinario<T> nodo) {
+
+        if (isRoot(nodo)) {
+            root = null;
+        } else {
+
+            NodoArbolBinario<T> parent = nodo.getParent();
+
+            if (parent.getLeft() == nodo) {
+                parent.setLeft(null);
+            }
+
+            if (parent.getRight() == nodo) {
+                parent.setRight(null);
+            }
+
+            nodo = null;
+
+        }
+
+    }
+
+    /**
+     * Elimina un nodo interno, varia segun el numero de hijos y posicion
+     *
+     * @param nodo
+     * @param type_node
+     */
+    private void removeWithChlid(NodoArbolBinario<T> nodo, int type_node) {
+
+        NodoArbolBinario<T> siguiente = null;
+
+        switch (type_node) {
+            case ONE_NODE_LEFT:
+                siguiente = nodo.getLeft();
+                break;
+            case ONE_NODE_RIGHT:
+                siguiente = minSubTree(nodo.getRight());
+                break;
+            case TWO_NODES:
+
+                siguiente = minSubTree(nodo.getRight());
+
+                if (!isRoot(siguiente.getParent())) {
+
+                    nodo.getLeft().setParent(siguiente);
+                    nodo.getRight().setParent(siguiente);
+
+                    if (siguiente.getParent().getLeft() == siguiente) {
+                        siguiente.getParent().setLeft(null);
+                    } else if (siguiente.getParent().getRight() == siguiente) {
+                        siguiente.getParent().setRight(null);
+                    }
+
+                }
+
+                break;
+        }
+
+        siguiente.setParent(nodo.getParent());
+
+        if (!isRoot(nodo)) {
+
+            if (nodo.getParent().getLeft() == nodo) {
+                nodo.getParent().setLeft(siguiente);
+            } else if (nodo.getParent().getRight() == nodo) {
+                nodo.getParent().setRight(siguiente);
+            }
+
+        } else {
+            root = siguiente;
+        }
+
+        if (nodo.getRight() != null && nodo.getRight() != siguiente) {
+            siguiente.setRight(nodo.getRight());
+        }
+
+        if (nodo.getLeft() != null && nodo.getLeft() != siguiente) {
+            siguiente.setLeft(nodo.getLeft());
+        }
+
+        nodo = null;
+
+    }
+
+    /**
+     * Calcula el valor minimo de un subarbol
+     *
+     * @param nodo
+     * @return
+     */
+    private NodoArbolBinario<T> minSubTree(NodoArbolBinario<T> nodo) {
+
+        if (nodo != null && nodo.getLeft() != null) {
+            while (!isLeaf(nodo)) {
+                nodo = minSubTree(nodo.getLeft());
+            }
+
+        }
+
+        return nodo;
+    }
+
 }
